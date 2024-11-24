@@ -2,6 +2,7 @@
 Configuracion de Postgre en Docker
 ========
 to download and install postgresql
+    enter to your project and set docker-compose.yml
     docker-compose up -d postgres
 
 view services
@@ -48,9 +49,18 @@ pgadmin:
      admin@mail.com
      root
 
-para saber la IP de la Base puedes ver e
-docker ps  #para ver el container_id
-docker inspect 9e1c0807cbb1
+[TAB general]
+Name:MyStore
+[TAB connection]
+hostName:
+    para saber la IP de la Base puedes ver e
+    docker ps  #para ver el container_id
+    docker inspect 9e1c0807cbb1
+port:5432
+Manteinance Database: my_store   # this name is from libs/postgres.js
+userName:nico
+savePwd:yes
+
 
 ========
 Integración de node-postgres
@@ -68,4 +78,44 @@ capa libs conexion a terceros apis o Bdd
     await client.connect();
     return client; 
     }
+============
+Manejando un Pool de conexiones
+============
+la conexión no es la mas adecuada,
+llamando a getConection cada vez que pidamos a getConection estamos pidiendo conexiones y no es la mas adecuada
 
+pg nose da un motor de inyection con node
+
+la primera conexion hace un await interno y comprate la conexión, no se necesita un async
+
+const pool = new Pool({
+  host: 'localhost',
+  port: 5432,
+  user: 'nico',
+  password: 'admin123',
+  database: 'my_store'
+});
+
+in the service
+..
+await this.pool.query(query);
+
+=========
+variables de entorno
+=========
+crear una carpeta llamada config
+crear un archivo config.js
+proteger con encodeURIComponent
+si tienes base de datos remotas es normal que te den una URI de conexion
+    postgres://nico:admin123@localhost:5432/my_store
+
+en desarrollo se puede definir las variables de entrono en el package.json en scripts-> "start":"NODE_ENV=dev PORT=3000 node index.js"
+
+para no definrlo así se usa archivos de entorno  -> .env
+
+el .env no debe ser leido por el repositorio
+
+se necesita un paquete para leer los archivos de entorno
+npm install dotenv
+y en el index.js
+require('dotenv').config();
