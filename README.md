@@ -143,4 +143,15 @@ const sequelize = new Sequelize(URI, {
 
 const[data,metadata]= await sequelize.query(query);
 
+=========
+Tu primer modelo en Sequelize
+========
+crear entiddes o modelos
+se trabaja con esquemas
+normalmente en las base de datos el nombre de la tabla es en plural
+el esquema define la estructura de la base de datos
+el naming en la base de datos no puede ser camel Case, debe ser seguido de una "_" por buenas practicas
+
+ cuando extienden de Model(tienen find, findAll) la forma de hacer queries
+ se crean metodos staticos
 
