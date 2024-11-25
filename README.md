@@ -155,3 +155,13 @@ el naming en la base de datos no puede ser camel Case, debe ser seguido de una "
  cuando extienden de Model(tienen find, findAll) la forma de hacer queries
  se crean metodos staticos
 
+ crear una sincronizacion
+ para que sepa qeu tiene que crear como el esquema
+el orm crea la tabla automaticamente
+
+cada vez que se que se crea con el init
+crea un espacio reservado de los modelos con models
+modelname: en el shcema
+
+await models.User.findAll();
+
