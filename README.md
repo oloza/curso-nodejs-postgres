@@ -119,3 +119,28 @@ se necesita un paquete para leer los archivos de entorno
 npm install dotenv
 y en el index.js
 require('dotenv').config();
+
+===========
+¿Qué es un ORM? Instalación y configuración de Sequelize ORM
+===========
+
+mapear toda la base de datso en objetos
+lo abstrae, es agnostico 
+dos ORMS
+Sequelize
+typeORM  se recomienda más en entornos con typeScript
+
+Sequelize va gestionar la conexión
+
+instalar
+npm install --save sequelize
+npm install --save pg-hstore  para serializar los objetos
+
+const sequelize = new Sequelize(URI, {
+  dialect: 'postgres',
+  logging: false, // para mostrar los logs
+  }); 
+
+const[data,metadata]= await sequelize.query(query);
+
+
